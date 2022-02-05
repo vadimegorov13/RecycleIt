@@ -25,6 +25,7 @@
     "expo-gl": "^11.1.2",
     "expo-image-manipulator": "^10.2.1",
     "expo-web-browser": "^10.1.1",
+    "metro-config": "^0.67.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/metro-config": "^0.66.0",
     "@types/react-native": "^0.66.15",
     "babel-preset-expo": "^9.0.2"
   },
