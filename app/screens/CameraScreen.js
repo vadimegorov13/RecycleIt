@@ -13,9 +13,9 @@ import { cropPicture, getPrediction } from '../../utils/predictionUtils';
 const CLASSES = [
   'box',
   'glass_bottle',
-  'soda cans',
-  'crushed soda cans',
-  'plastic_bottle',
+  'soda can',
+  'crushed soda can',
+  'plastic bottle',
 ];
 
 function CameraScreen(props) {
