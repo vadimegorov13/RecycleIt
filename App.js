@@ -1,78 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Camera } from 'expo-camera';
+import React from "react";
 
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import WelcomeScreen from "./app/screens/WelcomeScreen";
+import CameraScreen from "./app/screens/CameraScreen";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const cameraRef = useRef();
-  const [hasPermission, setHasPermission] = useState(null);
-
-  const handleImageCapture = async () => {
-    const imageData = await cameraRef.current.takePictureAsync({
-      base64: true,
-    });
-
-    console.log('image taken');
-  };
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-
   return (
-    <View style={styles.container}>
-      <Camera
-        ref={cameraRef}
-        style={styles.cameraView}
-        type={Camera.Constants.Type.back}
-        autoFocus={true}
-        whiteBalance={Camera.Constants.WhiteBalance.auto}
-      ></Camera>
-
-      <Pressable
-        onPress={() => handleImageCapture()}
-        style={styles.button}
-      ></Pressable>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="WelcomeScreen">
+        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  cameraView: {
-    height: '100%',
-    // left: Dimensions.get('screen').width / 2 - 50,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-
-  button: {
-    position: 'absolute',
-    color: '#00FF00',
-    bottom: 40,
-    width: 300,
-    zIndex: 100,
-    height: 100,
-    backgroundColor: 'white',
-    borderRadius: 40,
-  },
-});
