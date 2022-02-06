@@ -9,10 +9,10 @@ We build the android application using React Native. We used open-source data an
 
 ### Technologies Used: 
 
-Design Tools: Figma, Canva
-Dataset: Open Souce Data - http://web.cecs.pdx.edu/~singh/rcyc-web/dataset.html
-Software Tools: VSCode, Google Colab
-Technologies: React Native, Javascript, ReactJS, Python, TensorFlow, Expo
+1. Design Tools: Figma, Canva
+2. Dataset: Open Souce Data - http://web.cecs.pdx.edu/~singh/rcyc-web/dataset.html
+3. Software Tools: VSCode, Google Colab
+4. Technologies: React Native, Javascript, ReactJS, Python, TensorFlow, Expo
 
 
 <img src="./app/assets/RecycleIT_Final.png" width="900" height="500"/>
