@@ -112,7 +112,7 @@ function CameraScreen() {
             >
               The object is {prediction}. {"\n"}Your item is Recyclable!
             </Text>
-            {prediction === "" && <ActivityIndicator size="large" />}
+            {/* {prediction === "" && <ActivityIndicator size="large" />} */}
             <TouchableOpacity
               onPress={() => {
                 setPrediction("");
