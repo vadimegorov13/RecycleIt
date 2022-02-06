@@ -1,8 +1,6 @@
-import { Camera } from "expo-camera";
-// import Camera from '../utils/CameraResize';
-import React, { useEffect, useState } from "react";
+import { Camera } from 'expo-camera';
+import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   Modal,
   Text,
   TouchableOpacity,
@@ -10,9 +8,8 @@ import {
   StyleSheet,
   Dimensions,
   Image,
-  Divider,
-} from "react-native";
-import { cropPicture, getPrediction } from "../utils/predictionUtils";
+} from 'react-native';
+import { cropPicture, getPrediction } from '../utils/predictionUtils';
 import {
   Montserrat_100Thin,
   Montserrat_300Light,
@@ -22,23 +19,24 @@ import {
   Montserrat_700Bold,
   Montserrat_800ExtraBold,
   Montserrat_900Black,
-} from "@expo-google-fonts/montserrat";
-import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+} from '@expo-google-fonts/montserrat';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 const CLASSES = [
-  "box",
-  "glass bottle",
-  "soda can",
-  "crushed soda can",
-  "plastic bottle",
+  'box',
+  'glass bottle',
+  'soda can',
+  'crushed soda can',
+  'plastic bottle',
+  'not recycable',
 ];
 
 function CameraScreen() {
   let camera;
   const [hasPermission, setHasPermission] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [prediction, setPrediction] = useState("");
+  const [prediction, setPrediction] = useState('');
   let [fontsLoaded] = useFonts({
     Montserrat_100Thin,
     Montserrat_300Light,
@@ -66,17 +64,22 @@ function CameraScreen() {
 
     const prediction = await getPrediction(croppedImage);
 
-    console.log("prediction", prediction);
+    console.log('prediction', prediction);
 
     const highestPred = prediction.indexOf(Math.max.apply(null, prediction));
-    setPrediction(CLASSES[highestPred]);
+
+    if (prediction[highestPred] < 0.4) {
+      setPrediction(CLASSES[5]);
+    } else {
+      setPrediction(CLASSES[highestPred]);
+    }
   };
 
   // Check if the app has a permission to use camera
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
+      setHasPermission(status === 'granted');
     })();
   }, []);
 
@@ -94,39 +97,40 @@ function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      <Modal visible={isProcessing} transparent={true} animationType="slide">
+      <Modal visible={isProcessing} transparent={true} animationType='slide'>
         <View style={styles.modal}>
           <View style={styles.modalContent}>
             <Image
               style={styles.recyclableSymbol}
-              source={require("../assets/recycle_symbol.jpg")}
+              source={require('../assets/recycle_symbol.jpg')}
             ></Image>
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: "Montserrat_400Regular",
+                fontFamily: 'Montserrat_400Regular',
                 paddingBottom: 10,
                 paddingTop: 10,
-                alignItems: "center",
+                alignItems: 'center',
               }}
             >
-              The object is {prediction}. {"\n"}Your item is Recyclable!
+              {prediction != 'not recycable'
+                ? `The object is ${prediction}. \nYour item is Recyclable!`
+                : 'The object is not recycable'}
             </Text>
-            {/* {prediction === "" && <ActivityIndicator size="large" />} */}
             <TouchableOpacity
               onPress={() => {
-                setPrediction("");
+                setPrediction('');
                 setIsProcessing(false);
               }}
               style={styles.tryAgainButton}
             >
               <Text
                 style={{
-                  color: "#F9F7E8",
-                  textAlign: "center",
+                  color: '#F9F7E8',
+                  textAlign: 'center',
                   fontSize: 15,
-                  fontFamily: "Montserrat_400Regular",
-                  textTransform: "uppercase",
+                  fontFamily: 'Montserrat_400Regular',
+                  textTransform: 'uppercase',
                 }}
               >
                 Try again
@@ -153,63 +157,63 @@ function CameraScreen() {
   );
 }
 
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = Dimensions.get("window");
+const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   cameraView: {
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "transparent",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
 
   button: {
-    position: "absolute",
+    position: 'absolute',
     width: 300,
     zIndex: 100,
     width: 250,
     height: 70,
     bottom: 0,
     borderRadius: 20,
-    backgroundColor: "#2C7352",
+    backgroundColor: '#2C7352',
     marginBottom: 40,
   },
 
   camBtnText: {
     fontSize: 25,
-    fontFamily: "Montserrat_400Regular",
-    color: "white",
-    alignItems: "center",
+    fontFamily: 'Montserrat_400Regular',
+    color: 'white',
+    alignItems: 'center',
     paddingTop: 20,
     paddingLeft: 35,
-    textTransform: "uppercase",
+    textTransform: 'uppercase',
   },
 
   modal: {
     flex: 1,
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   modalContent: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 250,
     height: 300,
     borderRadius: 15,
-    backgroundColor: "#F9F7E8",
+    backgroundColor: '#F9F7E8',
   },
 
   recyclableSymbol: {
@@ -222,10 +226,10 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 30,
     borderRadius: 20,
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#2C7352",
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2C7352',
   },
 });
 
