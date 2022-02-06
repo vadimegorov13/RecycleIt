@@ -1,6 +1,6 @@
-import { Camera } from 'expo-camera';
+import { Camera } from "expo-camera";
 // import Camera from '../utils/CameraResize';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Modal,
@@ -9,22 +9,22 @@ import {
   View,
   StyleSheet,
   Dimensions,
-} from 'react-native';
-import { cropPicture, getPrediction } from '../utils/predictionUtils';
+} from "react-native";
+import { cropPicture, getPrediction } from "../utils/predictionUtils";
 
 const CLASSES = [
-  'box',
-  'glass bottle',
-  'soda can',
-  'crushed soda can',
-  'plastic bottle',
+  "box",
+  "glass bottle",
+  "soda can",
+  "crushed soda can",
+  "plastic bottle",
 ];
 
 function CameraScreen() {
   let camera;
   const [hasPermission, setHasPermission] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [prediction, setPrediction] = useState('');
+  const [prediction, setPrediction] = useState("");
 
   // Take a picture
   const captureImage = async () => {
@@ -38,11 +38,11 @@ function CameraScreen() {
   // Prediction of the image
   const predict = async (image) => {
     setIsProcessing(true);
-    const croppedImage = await cropPicture(image, 500);
+    const croppedImage = await cropPicture(image, 300);
 
     const prediction = await getPrediction(croppedImage);
 
-    console.log('prediction', prediction);
+    console.log("prediction", prediction);
 
     const highestPred = prediction.indexOf(Math.max.apply(null, prediction));
     setPrediction(CLASSES[highestPred]);
@@ -52,7 +52,7 @@ function CameraScreen() {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   }, []);
 
@@ -66,23 +66,23 @@ function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      <Modal visible={isProcessing} transparent={true} animationType='slide'>
+      <Modal visible={isProcessing} transparent={true} animationType="slide">
         <View style={styles.modal}>
           <View style={styles.modalContent}>
             <Text>The object is {prediction}</Text>
-            {prediction === '' && <ActivityIndicator size='large' />}
+            {prediction === "" && <ActivityIndicator size="large" />}
             <TouchableOpacity
               onPress={() => {
-                setPrediction('');
+                setPrediction("");
                 setIsProcessing(false);
               }}
               style={styles.tryAgainButton}
             >
               <Text
                 style={{
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  textAlign: 'center',
+                  color: "#fff",
+                  fontWeight: "bold",
+                  textAlign: "center",
                 }}
               >
                 Try again
@@ -107,29 +107,29 @@ function CameraScreen() {
   );
 }
 
-const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = Dimensions.get('window');
+const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   cameraView: {
     height: DEVICE_HEIGHT,
     width: DEVICE_WIDTH,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
 
   button: {
-    position: 'absolute',
-    color: '#00FF00',
+    position: "absolute",
+    color: "#00FF00",
     bottom: 40,
     width: 300,
     zIndex: 100,
@@ -137,25 +137,25 @@ const styles = StyleSheet.create({
     height: 70,
     bottom: 0,
     borderRadius: 50,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     marginBottom: 40,
   },
 
   modal: {
     flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   modalContent: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 250,
     height: 250,
     borderRadius: 20,
-    backgroundColor: 'green',
+    backgroundColor: "#F9F7E8",
   },
 
   tryAgainButton: {
@@ -163,10 +163,10 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 60,
     borderRadius: 24,
-    color: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'red',
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
   },
 });
 
