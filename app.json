@@ -25,6 +25,8 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": "This is a project for Hackher413 2022",
+    "githubUrl": "https://github.com/vadimegorov13/HackHer413-project"
   }
 }
