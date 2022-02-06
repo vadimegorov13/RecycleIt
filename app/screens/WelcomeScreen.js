@@ -2,36 +2,32 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Text, Image, StyleSheet, View, Pressable } from "react-native";
 import {
-  Alegreya_400Regular,
-  Alegreya_400Regular_Italic,
-  Alegreya_500Medium,
-  Alegreya_500Medium_Italic,
-  Alegreya_700Bold,
-  Alegreya_700Bold_Italic,
-  Alegreya_800ExtraBold,
-  Alegreya_800ExtraBold_Italic,
-  Alegreya_900Black,
-  Alegreya_900Black_Italic,
-} from "@expo-google-fonts/alegreya";
+  Montserrat_100Thin,
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+  Montserrat_800ExtraBold,
+  Montserrat_900Black,
+} from "@expo-google-fonts/montserrat";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 
 function WelcomeScreen() {
   const navigation = useNavigation();
-  const [titleText, setTitleText] = useState("Recycle IT");
-  const [btnText, setBtnText] = useState("Try Now");
+  const [titleText, setTitleText] = useState("RecycleIT");
+  const [btnText, setBtnText] = useState("Explore");
 
   let [fontsLoaded] = useFonts({
-    Alegreya_400Regular,
-    Alegreya_400Regular_Italic,
-    Alegreya_500Medium,
-    Alegreya_500Medium_Italic,
-    Alegreya_700Bold,
-    Alegreya_700Bold_Italic,
-    Alegreya_800ExtraBold,
-    Alegreya_800ExtraBold_Italic,
-    Alegreya_900Black,
-    Alegreya_900Black_Italic,
+    Montserrat_100Thin,
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+    Montserrat_800ExtraBold,
+    Montserrat_900Black,
   });
 
   if (!fontsLoaded) {
@@ -78,13 +74,12 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 30,
     fontWeight: "bold",
-    fontFamily: "Alegreya_400Regular",
-    textTransform: "uppercase",
+    fontFamily: "Montserrat_500Medium",
     color: "#2C7352",
   },
   btnTextStyle: {
     fontWeight: "bold",
-    fontFamily: "Alegreya_400Regular",
+    fontFamily: "Montserrat_400Regular",
     textTransform: "uppercase",
     color: "white",
     fontSize: 20,

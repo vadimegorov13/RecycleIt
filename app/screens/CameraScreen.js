@@ -9,8 +9,21 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  Image,
 } from "react-native";
 import { cropPicture, getPrediction } from "../utils/predictionUtils";
+import {
+  Montserrat_100Thin,
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+  Montserrat_800ExtraBold,
+  Montserrat_900Black,
+} from "@expo-google-fonts/montserrat";
+import { useFonts } from "expo-font";
+import AppLoading from "expo-app-loading";
 
 const CLASSES = [
   "box",
@@ -25,6 +38,16 @@ function CameraScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [prediction, setPrediction] = useState("");
+  let [fontsLoaded] = useFonts({
+    Montserrat_100Thin,
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+    Montserrat_800ExtraBold,
+    Montserrat_900Black,
+  });
 
   // Take a picture
   const captureImage = async () => {
@@ -64,12 +87,22 @@ function CameraScreen() {
     return <Text>Please provide an access to a camera.</Text>;
   }
 
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <View style={styles.container}>
       <Modal visible={isProcessing} transparent={true} animationType="slide">
         <View style={styles.modal}>
           <View style={styles.modalContent}>
-            <Text>The object is {prediction}</Text>
+            <Image
+              style={styles.recyclableSymbol}
+              source={require("../assets/recycle_symbol.jpg")}
+            ></Image>
+            <Text style={{ fontSize: 15, fontFamily: "Montserrat_400Regular" }}>
+              The object is {prediction}
+            </Text>
             {prediction === "" && <ActivityIndicator size="large" />}
             <TouchableOpacity
               onPress={() => {
@@ -80,9 +113,11 @@ function CameraScreen() {
             >
               <Text
                 style={{
-                  color: "#fff",
-                  fontWeight: "bold",
+                  color: "#F9F7E8",
                   textAlign: "center",
+                  fontSize: 15,
+                  fontFamily: "Montserrat_400Regular",
+                  textTransform: "uppercase",
                 }}
               >
                 Try again
@@ -129,7 +164,7 @@ const styles = StyleSheet.create({
 
   button: {
     position: "absolute",
-    color: "#00FF00",
+    color: "#F9F7E8",
     bottom: 40,
     width: 300,
     zIndex: 100,
@@ -154,19 +189,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 250,
     height: 250,
-    borderRadius: 20,
+    borderRadius: 15,
     backgroundColor: "#F9F7E8",
+  },
+
+  recyclableSymbol: {
+    paddingTop: 20,
+    height: 100,
+    width: 100,
   },
 
   tryAgainButton: {
     width: 150,
     height: 50,
-    marginTop: 60,
-    borderRadius: 24,
+    marginTop: 20,
+    borderRadius: 20,
     color: "white",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red",
+    backgroundColor: "#2C7352",
   },
 });
 

@@ -10,7 +10,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="RecycleIT">
+      <Stack.Navigator
+        initialRouteName="RecycleIT"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="RecycleIT" component={WelcomeScreen} />
         <Stack.Screen name="CameraScreen" component={CameraScreen} />
       </Stack.Navigator>
