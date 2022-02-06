@@ -1,24 +1,26 @@
 import { Camera } from 'expo-camera';
-import React, { useEffect, useRef, useState } from 'react';
+// import Camera from '../utils/CameraResize';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Modal,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  StyleSheet,
+  Dimensions,
 } from 'react-native';
-import { cropPicture, getPrediction } from '../../utils/predictionUtils';
+import { cropPicture, getPrediction } from '../utils/predictionUtils';
 
 const CLASSES = [
   'box',
-  'glass_bottle',
+  'glass bottle',
   'soda can',
   'crushed soda can',
   'plastic bottle',
 ];
 
-function CameraScreen(props) {
+function CameraScreen() {
   let camera;
   const [hasPermission, setHasPermission] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -36,7 +38,7 @@ function CameraScreen(props) {
   // Prediction of the image
   const predict = async (image) => {
     setIsProcessing(true);
-    const croppedImage = await cropPicture(image, 300);
+    const croppedImage = await cropPicture(image, 500);
 
     const prediction = await getPrediction(croppedImage);
 
@@ -46,6 +48,7 @@ function CameraScreen(props) {
     setPrediction(CLASSES[highestPred]);
   };
 
+  // Check if the app has a permission to use camera
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
@@ -104,6 +107,8 @@ function CameraScreen(props) {
   );
 }
 
+const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -115,9 +120,8 @@ const styles = StyleSheet.create({
   },
 
   cameraView: {
-    height: '100%',
-    // left: Dimensions.get('screen').width / 2 - 50,
-    width: '100%',
+    height: DEVICE_HEIGHT,
+    width: DEVICE_WIDTH,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',

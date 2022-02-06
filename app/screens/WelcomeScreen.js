@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text, Image, StyleSheet, View, Pressable } from 'react-native';
+import { Text, Image, View, Pressable, StyleSheet } from 'react-native';
 
 function WelcomeScreen() {
   const navigation = useNavigation();

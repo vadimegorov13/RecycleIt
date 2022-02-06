@@ -5,8 +5,8 @@ import { Base64Binary } from './base64binary';
 import { Dimensions } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 
-const model = require('../model/model.json');
-const weights = require('../model/weights.bin');
+const model = require('../../model/model.json');
+const weights = require('../../model/weights.bin');
 
 // Bitmap Dimension of the model
 export const BITMAP_DIMENSION = 32;

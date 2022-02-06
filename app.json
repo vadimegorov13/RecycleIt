@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hackher413-project",
-    "slug": "hackher413-project",
+    "name": "RecycleIt",
+    "slug": "RecycleIt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
