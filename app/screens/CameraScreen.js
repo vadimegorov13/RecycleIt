@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  Divider,
 } from "react-native";
 import { cropPicture, getPrediction } from "../utils/predictionUtils";
 import {
@@ -100,8 +101,16 @@ function CameraScreen() {
               style={styles.recyclableSymbol}
               source={require("../assets/recycle_symbol.jpg")}
             ></Image>
-            <Text style={{ fontSize: 15, fontFamily: "Montserrat_400Regular" }}>
-              The object is {prediction}
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Montserrat_400Regular",
+                paddingBottom: 10,
+                paddingTop: 10,
+                alignItems: "center",
+              }}
+            >
+              The object is {prediction}. {"\n"}Your item is Recyclable!
             </Text>
             {prediction === "" && <ActivityIndicator size="large" />}
             <TouchableOpacity
@@ -137,7 +146,9 @@ function CameraScreen() {
         whiteBalance={Camera.Constants.WhiteBalance.auto}
       ></Camera>
 
-      <TouchableOpacity onPress={() => captureImage()} style={styles.button} />
+      <TouchableOpacity onPress={() => captureImage()} style={styles.button}>
+        <Text style={styles.camBtnText}>Recyclable?</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -164,16 +175,24 @@ const styles = StyleSheet.create({
 
   button: {
     position: "absolute",
-    color: "#F9F7E8",
-    bottom: 40,
     width: 300,
     zIndex: 100,
-    width: 70,
+    width: 250,
     height: 70,
     bottom: 0,
-    borderRadius: 50,
-    backgroundColor: "#fff",
+    borderRadius: 20,
+    backgroundColor: "#2C7352",
     marginBottom: 40,
+  },
+
+  camBtnText: {
+    fontSize: 25,
+    fontFamily: "Montserrat_400Regular",
+    color: "white",
+    alignItems: "center",
+    paddingTop: 20,
+    paddingLeft: 35,
+    textTransform: "uppercase",
   },
 
   modal: {
@@ -188,13 +207,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 250,
-    height: 250,
+    height: 300,
     borderRadius: 15,
     backgroundColor: "#F9F7E8",
   },
 
   recyclableSymbol: {
-    paddingTop: 20,
     height: 100,
     width: 100,
   },
@@ -202,7 +220,7 @@ const styles = StyleSheet.create({
   tryAgainButton: {
     width: 150,
     height: 50,
-    marginTop: 20,
+    marginTop: 30,
     borderRadius: 20,
     color: "white",
     alignItems: "center",
