@@ -1,9 +1,9 @@
-import * as tf from '@tensorflow/tfjs';
-import '@tensorflow/tfjs-react-native';
-import { bundleResourceIO, decodeJpeg } from '@tensorflow/tfjs-react-native';
-import { Base64Binary } from './base64binary';
-import { Dimensions } from 'react-native';
-import * as ImageManipulator from 'expo-image-manipulator';
+import * as tf from "@tensorflow/tfjs";
+import "@tensorflow/tfjs-react-native";
+import { bundleResourceIO, decodeJpeg } from "@tensorflow/tfjs-react-native";
+import { Base64Binary } from "./base64binary";
+import { Dimensions } from "react-native";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const model = require('../../model/model.json');
 const weights = require('../../model/weights.bin');
@@ -42,7 +42,7 @@ export const getPrediction = async (croppedImage) => {
 export const cropPicture = async (image, dimension) => {
   // Get dimensions of the screen
   const { height: DEVICE_HEIGHT, width: DEVICE_WIDTH } =
-    Dimensions.get('window');
+    Dimensions.get("window");
   // get image data
   const { uri, width, height } = image;
 
